@@ -18,7 +18,9 @@ import os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../viz/'))
+sys.path.insert(0, os.path.abspath('../../viz/display'))
 
 # -- General configuration ------------------------------------------------
 
@@ -49,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Hugenn - Coffee Cooling'
+project = u'Huginn - Coffee Cooling'
 copyright = u'2014, Evin Özer & Cody Bomberger'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -104,7 +106,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'f6'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -202,7 +204,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'Hugenn-CoffeeCooling.tex', u'Hugenn - Coffee Cooling Documentation',
+  ('index', 'Huginn-CoffeeCooling.tex', u'Huginn - Coffee Cooling Documentation',
    u'Evin Özer \\& Cody Bomberger', 'manual'),
 ]
 
@@ -232,7 +234,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'hugenn-coffeecooling', u'Hugenn - Coffee Cooling Documentation',
+    ('index', 'huggin-coffeecooling', u'Hugenn - Coffee Cooling Documentation',
      [u'Evin Özer & Cody Bomberger'], 1)
 ]
 

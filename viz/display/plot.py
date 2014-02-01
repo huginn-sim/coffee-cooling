@@ -12,7 +12,7 @@ import  matplotlib.pyplot as plt, \
 #/~ Modules
 
 #~ Functions
-def configure_plot(ax, title, xlabel, ylabel, xbounds, ybounds):
+def configure(ax, title, xlabel, ylabel, xbounds, ybounds):
     """ Configures the plot with the specified parameters.
 
         :param ax: The current subplot to manipulate.
@@ -22,10 +22,13 @@ def configure_plot(ax, title, xlabel, ylabel, xbounds, ybounds):
         :param xbounds: The bounds of the x-axis.
         :param ybounds: The bounds of the y-axis.
     """
+    if ax == None: return
+
     # Set title, gridlines, and labels.
     ax.set_title(title, size=20)
     ax.grid(True, "major", alpha=.6)
     ax.grid(True, "minor", alpha=.4)
+    ax.set_axisbelow(True)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
 
@@ -66,22 +69,26 @@ def configure_plot(ax, title, xlabel, ylabel, xbounds, ybounds):
     ax.axhline(ybounds[0] - y_offset, 1-x_edge, x_edge, lw=5, color="k", alpha=1.)
     ax.axvline(xbounds[0] - x_offset, 1-y_edge, y_edge, lw=4, color="k", alpha=1.)
 
-def plot(X, Y, suptitle=None, titles=None, xlabels=None, ylabels=None, xbounds=None, ybounds=None, legends=None, custom=None):
-    """ Configures the plot with the specified parameters.
+def plot(X, Y, suptitle=None, titles=None, xlabels=None, ylabels=None, xbounds=None, ybounds=None, layout='tight', legends=None, custom=None):
+    """ Plots the specified X,Y data and applies settings.
+        If no 'custom' plotting function is defined, all (x,y) in zip(X,Y) are plotted on seperate subplots.
 
-        :param times: A list of discrete experiments representing intervals of time.
-        :param Temps: A list of discrete experiments representing intervals of Temperature.
+        :param X: A list of discrete experiments representing independent variables.
+        :param Y: A list of discrete experiments representing dependent variables.
         :param suptitle: The main title of the figure.
         :param titles: The title(s) of the subplot(s).
         :param xlabels: The label(s) of the x-axis.
         :param ylabels: The label(s) of the y-axis.
         :param xbounds: One or two bounds of the x-axis.
         :param ybounds: One or two bounds of the y-axis.
+        :param layout: An argument specifying figure margin presets.
         :param legends: Dictionaries specifying the labels of the plot 'legend'.
+        :param custom: A user-defined function for plotting data and applying legends.
     """
     # Initially, assume that no legend will be generated.
     legendary = False
     if type(titles) == list and type(xlabels) == list and type(ylabels) == list and type(xbounds) == list and type(ybounds) == list:
+        # Propogate plot-settings for every subplot, if necessary.
         if len(titles) == 1:
             titles = [titles[0], titles[0]]
         if len(xlabels) == 1:
@@ -96,34 +103,47 @@ def plot(X, Y, suptitle=None, titles=None, xlabels=None, ylabels=None, xbounds=N
             legends = [legends[0], legends[0]]
 
         fig, axes = plt.subplots(nrows=1, ncols=2, squeeze=True)
-    elif type(titles) == str and type(xlabels) == str and type(ylabels) == str and type(xbounds) == tuple and type(ybounds) == tuple:
+    elif type(titles) == str and type(xlabels) == str and type(ylabels) == str:
+        # Default to single-value case if only one dataset is to be plotted.
+        X = [X]; Y = [Y]
         titles = [titles]
-        xlabels = [xlabel]; ylabels = [ylabels];
-        xbounds = [xbounds]
+        xlabels = [xlabels]; ylabels = [ylabels];
+        xbounds = [xbounds]; ybounds = [ybounds];
         fig, ax = plt.subplots()
-        axes = [ax, None]
+        axes = [ax]
     else:
         print "Invalid configuration. Read docstring for more information."
         return
     
     if custom != None:
-        custom(fig, axes, X, Y, legends)
+        custom(X, Y, axes, legends)
 
     bundle = zip(axes,X,Y,titles,xlabels,ylabels,xbounds,ybounds)
     for ax,x,y,title,xlabel,ylabel,xbound,ybound in bundle:
         if ax != None and custom == None:
             ax.plot(x, y)
-        configure_plot( ax=ax,
-                        title=title,
-                        xlabel=xlabel,
-                        ylabel=ylabel,
-                        xbounds=xbound,
-                        ybounds=ybound)
+        configure( ax=ax,
+                   title=title,
+                   xlabel=xlabel,
+                   ylabel=ylabel,
+                   xbounds=xbound,
+                   ybounds=ybound)
 
-    fig.suptitle(suptitle, size=30)
+    if layout == 'tight':
+        fig.suptitle(suptitle, size=30)
+        plt.subplots_adjust(left=0.05, right=0.95, top=0.9, bottom=0.05)
+    else:
+        fig.suptitle(suptitle)
 
-    #fig.set_dpi(95)
-    plt.subplots_adjust(left=0.05, right=0.95, top=0.9, bottom=0.05)
     plt.show()
 
 #/~ Functions.
+
+#~ Entry point of the script.
+if __name__ == "__main__":
+    import math
+    x = np.arange(0,math.pi*3,.001)
+    y = np.cos(x)
+    plot(X=x, Y=y,
+         suptitle="Trig Plot", titles=r"$f\left( x\right)=cos\left( x\right)$",
+         xlabels="x", ylabels=r"$f\left( x\right)$", layout=None)

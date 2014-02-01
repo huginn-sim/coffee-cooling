@@ -22,10 +22,6 @@ os.chdir(os.path.dirname(sys.argv[0]))
 atexit.register(lambda destruct: plt.close(), None)
 #/~ Setup
 
-#~ Globals
-#ideal_time = 1.2147
-#/~
-
 #~ Functions
 def model(t0=0, tf=30, dt=.1, T0=90, Tf=70, Tp=75, Te=-5, experiments=8):
     """ Models the rate of cooling of coffee over time.
@@ -39,9 +35,10 @@ def model(t0=0, tf=30, dt=.1, T0=90, Tf=70, Tp=75, Te=-5, experiments=8):
         :param Te: The immediate change in temperature upon experiment.
         :param experiments: The number of intervals to conduct an experiment; add cream.
     """
-    # Get 'indices' for cream experiments.
-    offset = .25*(tf-t0) / (experiments)
-    indices = np.arange(t0+offset, .3*(tf-t0)+offset, offset)
+    # Get 'indices' for cream experiments. Biased towards earlier time-points.
+    tm = (tf-t0) / 4.
+    offset = tm / experiments
+    indices = np.arange(t0+offset, tm+offset, offset)
     indices = [indices[i] for i in range(experiments)]
     indices = reversed(indices)
 
@@ -178,6 +175,7 @@ if __name__ == "__main__":
     
     dec = lambda x: len(str(x/10.).split('.')[0])
 
+    t_min = times[0][0]
     t_max = round(times[0][-1], -dec(times[0][-1]))
     T_min = min(Temps[0][-1], Temps[1][-1])
     T_min = round(T_min, -dec(T_min)) - 10.*dec(T_min)
@@ -192,16 +190,12 @@ if __name__ == "__main__":
         titles=titles,
         xlabels=["Time (minutes)"],
         ylabels=["Temperature ("+u'\N{DEGREE SIGN}'+"C)"],
-        xbounds=[(t0,20), (times[0][0],t_max)],
+        xbounds=[(t0,20), (t_min,t_max)],
         ybounds=[(70,T0), (T_min,T_max)],
-        legends=[{
-            "Black Coffee":None,
-            "Cream Coffee":None,
-            "Cream Added":None,
-            "$t^*\\approx "+str(float(times[3][0]))[:4]+"$ minutes":None
-        },
-        {
-            "Black Coffee: $\\bar{c_{\\mathbb{B}}}="+str(constants['black'])[:6]+"$":None, # What are the units of 'c_B'?
-            "Cream Coffee: $\\bar{c_{\\mathbb{C}}}="+str(constants['cream'])[:6]+"$":None
-        }],
+        legends=[["Black Coffee", "Cream Coffee", "Cream Added",
+                  "$t^*\\approx "+str(float(times[3][0]))[:4]+"$ minutes"
+                 ],
+                 ["Black Coffee: $\\bar{c_{\\mathbb{B}}}="+str(constants['black'])[:6]+"$", # What are the units of 'c_B'?
+                  "Cream Coffee: $\\bar{c_{\\mathbb{C}}}="+str(constants['cream'])[:6]+"$"
+                 ]],
         custom=cplot)

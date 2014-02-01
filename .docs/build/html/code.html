@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The coffee module &mdash; Hugenn - Coffee Cooling .0a documentation</title>
+    <title>The coffee module &mdash; Huginn - Coffee Cooling .0a documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/f6.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -23,8 +22,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Hugenn - Coffee Cooling .0a documentation" href="index.html" />
-    <link rel="prev" title="Welcome to Hugenn - Coffee Cooling’s documentation!" href="index.html" /> 
+    <link rel="top" title="Huginn - Coffee Cooling .0a documentation" href="index.html" />
+    <link rel="prev" title="Coffee Cooling - Source Code Documentation" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="related">
@@ -37,11 +36,43 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to Hugenn - Coffee Cooling’s documentation!"
+          <a href="index.html" title="Coffee Cooling - Source Code Documentation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Hugenn - Coffee Cooling .0a documentation</a> &raquo;</li> 
+        <li><a href="index.html">Huginn - Coffee Cooling .0a documentation</a> &raquo;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The <tt class="docutils literal"><span class="pre">coffee</span></tt> module</a></li>
+<li><a class="reference internal" href="#the-coffee-plot-module">The <tt class="docutils literal"><span class="pre">coffee_plot</span></tt> module</a></li>
+<li><a class="reference internal" href="#the-plot-module">The <tt class="docutils literal"><span class="pre">plot</span></tt> module</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Coffee Cooling - Source Code Documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/code.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -76,7 +107,7 @@
 
 <dl class="function">
 <dt id="coffee.model">
-<tt class="descclassname">coffee.</tt><tt class="descname">model</tt><big>(</big><em>t0=0</em>, <em>tf=30</em>, <em>dt=0.1</em>, <em>T0=90</em>, <em>Tf=70</em>, <em>Tp=75</em>, <em>Te=-5</em>, <em>experiments=3</em><big>)</big><a class="reference internal" href="_modules/coffee.html#model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee.model" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">coffee.</tt><tt class="descname">model</tt><big>(</big><em>t0=0</em>, <em>tf=30</em>, <em>dt=0.1</em>, <em>T0=90</em>, <em>Tf=70</em>, <em>Tp=75</em>, <em>Te=-5</em>, <em>experiments=8</em><big>)</big><a class="reference internal" href="_modules/coffee.html#model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee.model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Models the rate of cooling of coffee over time.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -116,9 +147,13 @@
 <div class="section" id="the-coffee-plot-module">
 <h1>The <tt class="docutils literal"><span class="pre">coffee_plot</span></tt> module<a class="headerlink" href="#the-coffee-plot-module" title="Permalink to this headline">¶</a></h1>
 <p>TODO</p>
-<span class="target" id="module-coffee_plot"></span><span class="target" id="module-coffee_plot"></span><dl class="function">
-<dt id="coffee_plot.configure_plot">
-<tt class="descclassname">coffee_plot.</tt><tt class="descname">configure_plot</tt><big>(</big><em>ax</em>, <em>title</em>, <em>xlabel</em>, <em>ylabel</em>, <em>xbounds</em>, <em>ybounds</em><big>)</big><a class="reference internal" href="_modules/coffee_plot.html#configure_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee_plot.configure_plot" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-coffee_plot"></span><span class="target" id="module-coffee_plot"></span></div>
+<div class="section" id="the-plot-module">
+<h1>The <tt class="docutils literal"><span class="pre">plot</span></tt> module<a class="headerlink" href="#the-plot-module" title="Permalink to this headline">¶</a></h1>
+<p>TODO</p>
+<span class="target" id="module-plot"></span><span class="target" id="module-plot"></span><dl class="function">
+<dt id="plot.configure">
+<tt class="descclassname">plot.</tt><tt class="descname">configure</tt><big>(</big><em>ax</em>, <em>title</em>, <em>xlabel</em>, <em>ylabel</em>, <em>xbounds</em>, <em>ybounds</em><big>)</big><a class="reference internal" href="_modules/plot.html#configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plot.configure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configures the plot with the specified parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -139,46 +174,37 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="coffee_plot.plot">
-<tt class="descclassname">coffee_plot.</tt><tt class="descname">plot</tt><big>(</big><em>times</em>, <em>Temps</em>, <em>suptitle=None</em>, <em>titles=None</em>, <em>xlabels=None</em>, <em>ylabels=None</em>, <em>xbounds=None</em>, <em>ybounds=None</em>, <em>legends=None</em><big>)</big><a class="reference internal" href="_modules/coffee_plot.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee_plot.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO</p>
+<dt id="plot.plot">
+<tt class="descclassname">plot.</tt><tt class="descname">plot</tt><big>(</big><em>X</em>, <em>Y</em>, <em>suptitle=None</em>, <em>titles=None</em>, <em>xlabels=None</em>, <em>ylabels=None</em>, <em>xbounds=None</em>, <em>ybounds=None</em>, <em>layout='tight'</em>, <em>legends=None</em>, <em>custom=None</em><big>)</big><a class="reference internal" href="_modules/plot.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#plot.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the specified X,Y data and applies settings.
+If no &#8216;custom&#8217; plotting function is defined, all (x,y) in zip(X,Y) are plotted on seperate subplots.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>X</strong> &#8211; A list of discrete experiments representing independent variables.</li>
+<li><strong>Y</strong> &#8211; A list of discrete experiments representing dependent variables.</li>
+<li><strong>suptitle</strong> &#8211; The main title of the figure.</li>
+<li><strong>titles</strong> &#8211; The title(s) of the subplot(s).</li>
+<li><strong>xlabels</strong> &#8211; The label(s) of the x-axis.</li>
+<li><strong>ylabels</strong> &#8211; The label(s) of the y-axis.</li>
+<li><strong>xbounds</strong> &#8211; One or two bounds of the x-axis.</li>
+<li><strong>ybounds</strong> &#8211; One or two bounds of the y-axis.</li>
+<li><strong>layout</strong> &#8211; An argument specifying figure margin presets.</li>
+<li><strong>legends</strong> &#8211; Dictionaries specifying the labels of the plot &#8216;legend&#8217;.</li>
+<li><strong>custom</strong> &#8211; A user-defined function for plotting data and applying legends.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">The <tt class="docutils literal"><span class="pre">coffee</span></tt> module</a></li>
-<li><a class="reference internal" href="#the-coffee-plot-module">The <tt class="docutils literal"><span class="pre">coffee_plot</span></tt> module</a></li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to Hugenn - Coffee Cooling&#8217;s documentation!</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/code.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -193,14 +219,14 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to Hugenn - Coffee Cooling’s documentation!"
+          <a href="index.html" title="Coffee Cooling - Source Code Documentation"
              >previous</a> |</li>
-        <li><a href="index.html">Hugenn - Coffee Cooling .0a documentation</a> &raquo;</li> 
+        <li><a href="index.html">Huginn - Coffee Cooling .0a documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2014, Evin Özer &amp; Cody Bomberger.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.1.Theme by <a href="http://github.com/vkvn">vkvn</a>
     </div>
   </body>
 </html>
