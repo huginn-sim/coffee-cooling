@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The coffee module &mdash; Hugenn - Coffee Cooling .0a documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Hugenn - Coffee Cooling .0a documentation" href="index.html" />
+    <link rel="prev" title="Welcome to Hugenn - Coffee Cooling’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Hugenn - Coffee Cooling’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Hugenn - Coffee Cooling .0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-coffee-module">
+<h1>The <tt class="docutils literal"><span class="pre">coffee</span></tt> module<a class="headerlink" href="#the-coffee-module" title="Permalink to this headline">¶</a></h1>
+<p>TODO</p>
+<span class="target" id="module-coffee"></span><span class="target" id="module-coffee"></span><dl class="function">
+<dt id="coffee.cool">
+<tt class="descclassname">coffee.</tt><tt class="descname">cool</tt><big>(</big><em>times</em>, <em>t0</em>, <em>dt</em>, <em>T0</em>, <em>Tf</em>, <em>Tp</em>, <em>Te</em><big>)</big><a class="reference internal" href="_modules/coffee.html#cool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee.cool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates a set of Temperature values given some initial conditions and calculated constants.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>times</strong> &#8211; A dictionary of time measurements. (&#8216;black&#8217;:interval, &#8216;cream&#8217;:samples of &#8216;black&#8217;)</li>
+<li><strong>t0</strong> &#8211; The inital time of Temperature measurement.</li>
+<li><strong>dt</strong> &#8211; The time differential.</li>
+<li><strong>T0</strong> &#8211; The initial temperature of the object.</li>
+<li><strong>Tf</strong> &#8211; The temperature equilibrium.</li>
+<li><strong>Tp</strong> &#8211; The preferred temperature of the object.</li>
+<li><strong>Te</strong> &#8211; The immediate change in temperature upon experiment.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="coffee.model">
+<tt class="descclassname">coffee.</tt><tt class="descname">model</tt><big>(</big><em>t0=0</em>, <em>tf=30</em>, <em>dt=0.1</em>, <em>T0=90</em>, <em>Tf=70</em>, <em>Tp=75</em>, <em>Te=-5</em>, <em>experiments=3</em><big>)</big><a class="reference internal" href="_modules/coffee.html#model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Models the rate of cooling of coffee over time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>t0</strong> &#8211; The inital time of Temperature measurement.</li>
+<li><strong>tf</strong> &#8211; The maximum amount of time allotted for cooling.</li>
+<li><strong>dt</strong> &#8211; The time differential.</li>
+<li><strong>T0</strong> &#8211; The initial temperature of the object.</li>
+<li><strong>Tf</strong> &#8211; The temperature equilibrium.</li>
+<li><strong>Tp</strong> &#8211; The preferred temperature of the object.</li>
+<li><strong>Te</strong> &#8211; The immediate change in temperature upon experiment.</li>
+<li><strong>experiments</strong> &#8211; The number of intervals to conduct an experiment; add cream.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="coffee.sample_data">
+<tt class="descclassname">coffee.</tt><tt class="descname">sample_data</tt><big>(</big><em>data=None</em><big>)</big><a class="reference internal" href="_modules/coffee.html#sample_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee.sample_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates thermal constants from a dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> &#8211; The dataset used to derive cooling constants. If &#8216;None&#8217; use default &#8216;data&#8217;.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="the-coffee-plot-module">
+<h1>The <tt class="docutils literal"><span class="pre">coffee_plot</span></tt> module<a class="headerlink" href="#the-coffee-plot-module" title="Permalink to this headline">¶</a></h1>
+<p>TODO</p>
+<span class="target" id="module-coffee_plot"></span><span class="target" id="module-coffee_plot"></span><dl class="function">
+<dt id="coffee_plot.configure_plot">
+<tt class="descclassname">coffee_plot.</tt><tt class="descname">configure_plot</tt><big>(</big><em>ax</em>, <em>title</em>, <em>xlabel</em>, <em>ylabel</em>, <em>xbounds</em>, <em>ybounds</em><big>)</big><a class="reference internal" href="_modules/coffee_plot.html#configure_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee_plot.configure_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configures the plot with the specified parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ax</strong> &#8211; The current subplot to manipulate.</li>
+<li><strong>title</strong> &#8211; The title of the current subplot.</li>
+<li><strong>xlabel</strong> &#8211; The label of the x-axis.</li>
+<li><strong>ylabel</strong> &#8211; The label of the y-axis.</li>
+<li><strong>xbounds</strong> &#8211; The bounds of the x-axis.</li>
+<li><strong>ybounds</strong> &#8211; The bounds of the y-axis.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="coffee_plot.plot">
+<tt class="descclassname">coffee_plot.</tt><tt class="descname">plot</tt><big>(</big><em>times</em>, <em>Temps</em>, <em>suptitle=None</em>, <em>titles=None</em>, <em>xlabels=None</em>, <em>ylabels=None</em>, <em>xbounds=None</em>, <em>ybounds=None</em>, <em>legends=None</em><big>)</big><a class="reference internal" href="_modules/coffee_plot.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee_plot.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The <tt class="docutils literal"><span class="pre">coffee</span></tt> module</a></li>
+<li><a class="reference internal" href="#the-coffee-plot-module">The <tt class="docutils literal"><span class="pre">coffee_plot</span></tt> module</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Hugenn - Coffee Cooling&#8217;s documentation!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/code.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Hugenn - Coffee Cooling’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">Hugenn - Coffee Cooling .0a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Evin Özer &amp; Cody Bomberger.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

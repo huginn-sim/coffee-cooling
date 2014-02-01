@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>coffee &mdash; Hugenn - Coffee Cooling .0a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Hugenn - Coffee Cooling .0a documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Hugenn - Coffee Cooling .0a documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for coffee</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module:: coffee</span>
+<span class="sd">   :synopsis: TODO.</span>
+
+<span class="sd">.. moduleauthor:: Evin Özer &lt;evin.ozer@umconnect.umt.edu&gt;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c">#~ Modules</span>
+<span class="kn">from</span> <span class="nn">coffee_plot</span> <span class="kn">import</span> <span class="n">plot</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">import</span>  <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">atexit</span><span class="o">,</span> \
+        <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span><span class="o">,</span> \
+        <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="c">#/~ Modules</span>
+
+<span class="c">#~ Setup</span>
+<span class="c"># Make sure the working directory is set to this script&#39;s location.</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="c"># Make sure any open plots are closed when this script ends.</span>
+<span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="k">lambda</span> <span class="n">destruct</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(),</span> <span class="bp">None</span><span class="p">)</span>
+<span class="c">#/~ Setup</span>
+
+<span class="c">#~ Globals</span>
+<span class="c">#ideal_time = 1.2147</span>
+<span class="c">#/~</span>
+
+<span class="c">#~ Functions</span>
+<div class="viewcode-block" id="model"><a class="viewcode-back" href="../code.html#coffee.model">[docs]</a><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tf</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">dt</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">T0</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">Tf</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">Tp</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">Te</span><span class="o">=-</span><span class="mi">5</span><span class="p">,</span> <span class="n">experiments</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Models the rate of cooling of coffee over time.</span>
+
+<span class="sd">        :param t0: The inital time of Temperature measurement.</span>
+<span class="sd">        :param tf: The maximum amount of time allotted for cooling.</span>
+<span class="sd">        :param dt: The time differential.</span>
+<span class="sd">        :param T0: The initial temperature of the object.</span>
+<span class="sd">        :param Tf: The temperature equilibrium.</span>
+<span class="sd">        :param Tp: The preferred temperature of the object.</span>
+<span class="sd">        :param Te: The immediate change in temperature upon experiment.</span>
+<span class="sd">        :param experiments: The number of intervals to conduct an experiment; add cream.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Get &#39;indices&#39; for cream experiments.</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">tf</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">experiments</span><span class="p">);</span> <span class="k">print</span> <span class="n">offset</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t0</span><span class="o">+</span><span class="n">offset</span><span class="o">/</span><span class="mf">6.</span><span class="p">,</span> <span class="n">tf</span><span class="o">-</span><span class="n">offset</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">offset</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">indices</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">indices</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+
+    <span class="c"># Initialize dictionaries with time steps.</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">times</span><span class="p">[</span><span class="s">&#39;black&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">times</span><span class="p">[</span><span class="s">&#39;cream&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="s">&#39;black&#39;</span><span class="p">][[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]]</span>
+
+    <span class="k">return</span> <span class="n">cool</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">T0</span><span class="p">,</span> <span class="n">Tf</span><span class="p">,</span> <span class="n">Tp</span><span class="p">,</span> <span class="n">Te</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="cool"><a class="viewcode-back" href="../code.html#coffee.cool">[docs]</a><span class="k">def</span> <span class="nf">cool</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">T0</span><span class="p">,</span> <span class="n">Tf</span><span class="p">,</span> <span class="n">Tp</span><span class="p">,</span> <span class="n">Te</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;  Calculates a set of Temperature values given some initial conditions and calculated constants.</span>
+
+<span class="sd">        :param times: A dictionary of time measurements. (&#39;black&#39;:interval, &#39;cream&#39;:samples of &#39;black&#39;)</span>
+<span class="sd">        :param t0: The inital time of Temperature measurement.</span>
+<span class="sd">        :param dt: The time differential.</span>
+<span class="sd">        :param T0: The initial temperature of the object.</span>
+<span class="sd">        :param Tf: The temperature equilibrium.</span>
+<span class="sd">        :param Tp: The preferred temperature of the object.</span>
+<span class="sd">        :param Te: The immediate change in temperature upon experiment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Defines a lambda function that calculates each new temperature.</span>
+    <span class="n">_cool</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">current</span><span class="p">,</span><span class="n">final</span><span class="p">,</span><span class="n">constant</span><span class="p">,</span><span class="n">delta</span><span class="p">:</span> <span class="p">(</span><span class="n">current</span> <span class="o">-</span> <span class="n">constant</span><span class="o">*</span><span class="p">(</span><span class="n">current</span> <span class="o">-</span> <span class="n">final</span><span class="p">)</span><span class="o">*</span><span class="n">delta</span><span class="p">)</span>
+
+    <span class="c"># Retrieve the &#39;sample data&#39; and calculated thermal constants.</span>
+    <span class="n">data_times</span><span class="p">,</span> <span class="p">(</span><span class="n">data_Temps_b</span><span class="p">,</span> <span class="n">data_Temps_c</span><span class="p">),</span> <span class="n">constants</span> <span class="o">=</span> <span class="n">sample_data</span><span class="p">()</span>
+
+    <span class="c"># Define &#39;super&#39; lists to store the results of multiple experiments.</span>
+    <span class="n">super_times</span><span class="p">,</span> <span class="n">super_Temps</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">data_times</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_times</span><span class="p">)],</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">data_Temps_b</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_Temps_c</span><span class="p">)]</span>
+    <span class="c"># Define &#39;sub&#39; lists to store the result of an experiment.</span>
+    <span class="n">sub_times</span><span class="p">,</span> <span class="n">sub_Temps</span> <span class="o">=</span> <span class="p">[</span><span class="n">t0</span><span class="p">],</span> <span class="p">[</span><span class="n">T0</span><span class="p">]</span>
+    
+    <span class="n">just_right</span> <span class="o">=</span> <span class="bp">False</span>   <span class="c"># Not too hot; maybe a little cold.</span>
+    <span class="k">for</span> <span class="n">tb</span> <span class="ow">in</span> <span class="n">times</span><span class="p">[</span><span class="s">&#39;black&#39;</span><span class="p">]:</span>   <span class="c"># For every time allotted for coffee cooling...</span>
+        <span class="c"># The current Temperature.</span>
+        <span class="n">Tc</span> <span class="o">=</span> <span class="n">sub_Temps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c"># The cooling constant of black coffee.</span>
+        <span class="n">cb</span> <span class="o">=</span> <span class="n">constants</span><span class="p">[</span><span class="s">&#39;black&#39;</span><span class="p">]</span> 
+        <span class="c"># The next Temperature according to the difference equation.</span>
+        <span class="n">Tn</span> <span class="o">=</span> <span class="n">_cool</span><span class="p">(</span><span class="n">Tc</span><span class="p">,</span> <span class="n">Tf</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+        <span class="c"># Log and save the the time/Temp when the coffee is &quot;just right&quot;.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">just_right</span> <span class="ow">and</span> <span class="n">Tp</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span> <span class="p">(</span><span class="n">Tn</span><span class="o">+</span><span class="n">Te</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">Tp</span><span class="p">:</span>
+            <span class="n">just_right</span> <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">~ Add Cream ~&quot;</span>
+            <span class="k">print</span> <span class="s">&quot;Preferred Temperature = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">Tp</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;°C&quot;</span>
+            <span class="k">print</span> <span class="s">&quot;Current Temperature = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">Tn</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;°C&quot;</span>
+            <span class="k">print</span> <span class="s">&quot;Current Time = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span> <span class="o">+</span><span class="s">&quot; minutes</span><span class="se">\n</span><span class="s">&quot;</span>
+
+            <span class="n">times</span><span class="p">[</span><span class="s">&#39;cream&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="n">tb</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="s">&#39;cream&#39;</span><span class="p">]))</span>
+
+        <span class="n">sub_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>
+        <span class="n">sub_Temps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tn</span><span class="p">)</span>
+
+    <span class="n">super_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_times</span><span class="p">)</span>
+    <span class="n">super_Temps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_Temps</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">times</span><span class="p">[</span><span class="s">&#39;cream&#39;</span><span class="p">]:</span>   <span class="c"># For every chosen time to add cream to the coffee...</span>
+        <span class="c"># Find the index of &#39;tc&#39; in times[&#39;black&#39;]. </span>
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="s">&#39;black&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">tc</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c"># List of times starting from &#39;index&#39;.         |    # Insert a duplicate time.</span>
+        <span class="n">sub_times</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">super_times</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">index</span><span class="p">:]);</span>      <span class="n">sub_times</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">sub_times</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="c"># List of Temps starting from &#39;index&#39;.         |    # Insert a duplicate Temp and add cream to T_i=1.</span>
+        <span class="n">sub_Temps</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">super_Temps</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">index</span><span class="p">:]);</span>      <span class="n">sub_Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">sub_Temps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">Te</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">sub_times</span><span class="p">)):</span>   <span class="c"># Calculate the Temps of the creamed coffee...</span>
+            <span class="c"># The current Temperature.</span>
+            <span class="n">Tc</span> <span class="o">=</span> <span class="n">sub_Temps</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c"># The cooling constant of cooled coffee.</span>
+            <span class="n">cc</span> <span class="o">=</span> <span class="n">constants</span><span class="p">[</span><span class="s">&#39;cream&#39;</span><span class="p">]</span>
+            <span class="c"># The next Temperature according to the difference euqation.</span>
+            <span class="n">Tn</span> <span class="o">=</span> <span class="n">_cool</span><span class="p">(</span><span class="n">Tc</span><span class="p">,</span> <span class="n">Tf</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+            <span class="n">sub_Temps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Tn</span>
+
+        <span class="n">super_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_times</span><span class="p">)</span>
+        <span class="n">super_Temps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub_Temps</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">super_times</span><span class="p">,</span> <span class="n">super_Temps</span><span class="p">,</span> <span class="n">constants</span>
+</div>
+<div class="viewcode-block" id="sample_data"><a class="viewcode-back" href="../code.html#coffee.sample_data">[docs]</a><span class="k">def</span> <span class="nf">sample_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Calculates thermal constants from a dataset.</span>
+<span class="sd">        </span>
+<span class="sd">        :param data: The dataset used to derive cooling constants. If &#39;None&#39; use default &#39;data&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>    <span class="c"># Use default &#39;data&#39; if none is provided by user.</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span>  <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">82.3</span><span class="p">,</span>  <span class="mf">68.8</span><span class="p">],</span> <span class="p">[</span>  <span class="mf">2.</span> <span class="p">,</span>  <span class="mf">78.5</span><span class="p">,</span>  <span class="mf">64.8</span><span class="p">],</span>
+                         <span class="p">[</span>  <span class="mf">4.</span> <span class="p">,</span>  <span class="mf">74.3</span><span class="p">,</span>  <span class="mf">62.1</span><span class="p">],</span> <span class="p">[</span>  <span class="mf">6.</span> <span class="p">,</span>  <span class="mf">70.7</span><span class="p">,</span>  <span class="mf">59.9</span><span class="p">],</span>
+                         <span class="p">[</span>  <span class="mf">8.</span> <span class="p">,</span>  <span class="mf">67.6</span><span class="p">,</span>  <span class="mf">57.7</span><span class="p">],</span> <span class="p">[</span> <span class="mf">10.</span> <span class="p">,</span>  <span class="mf">65.</span> <span class="p">,</span>  <span class="mf">55.9</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">12.</span> <span class="p">,</span>  <span class="mf">62.5</span><span class="p">,</span>  <span class="mf">53.9</span><span class="p">],</span> <span class="p">[</span> <span class="mf">14.</span> <span class="p">,</span>  <span class="mf">60.1</span><span class="p">,</span>  <span class="mf">52.3</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">16.</span> <span class="p">,</span>  <span class="mf">58.1</span><span class="p">,</span>  <span class="mf">50.8</span><span class="p">],</span> <span class="p">[</span> <span class="mf">18.</span> <span class="p">,</span>  <span class="mf">56.1</span><span class="p">,</span>  <span class="mf">49.5</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">20.</span> <span class="p">,</span>  <span class="mf">54.3</span><span class="p">,</span>  <span class="mf">48.1</span><span class="p">],</span> <span class="p">[</span> <span class="mf">22.</span> <span class="p">,</span>  <span class="mf">52.8</span><span class="p">,</span>  <span class="mf">46.8</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">24.</span> <span class="p">,</span>  <span class="mf">51.2</span><span class="p">,</span>  <span class="mf">45.9</span><span class="p">],</span> <span class="p">[</span> <span class="mf">26.</span> <span class="p">,</span>  <span class="mf">49.9</span><span class="p">,</span>  <span class="mf">44.8</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">28.</span> <span class="p">,</span>  <span class="mf">48.6</span><span class="p">,</span>  <span class="mf">43.7</span><span class="p">],</span> <span class="p">[</span> <span class="mf">30.</span> <span class="p">,</span>  <span class="mf">47.2</span><span class="p">,</span>  <span class="mf">42.6</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">32.</span> <span class="p">,</span>  <span class="mf">46.1</span><span class="p">,</span>  <span class="mf">41.7</span><span class="p">],</span> <span class="p">[</span> <span class="mf">34.</span> <span class="p">,</span>  <span class="mf">45.</span> <span class="p">,</span>  <span class="mf">40.8</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">36.</span> <span class="p">,</span>  <span class="mf">43.9</span><span class="p">,</span>  <span class="mf">39.9</span><span class="p">],</span> <span class="p">[</span> <span class="mf">38.</span> <span class="p">,</span>  <span class="mf">43.</span> <span class="p">,</span>  <span class="mf">39.3</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">40.</span> <span class="p">,</span>  <span class="mf">41.9</span><span class="p">,</span>  <span class="mf">38.6</span><span class="p">],</span> <span class="p">[</span> <span class="mf">42.</span> <span class="p">,</span>  <span class="mf">41.</span> <span class="p">,</span>  <span class="mf">37.7</span><span class="p">],</span>
+                         <span class="p">[</span> <span class="mf">44.</span> <span class="p">,</span>  <span class="mf">40.1</span><span class="p">,</span>  <span class="mf">37.</span> <span class="p">],</span> <span class="p">[</span> <span class="mf">46.</span> <span class="p">,</span>  <span class="mf">39.5</span><span class="p">,</span>  <span class="mf">36.4</span><span class="p">]])</span>
+
+    <span class="n">times</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Temps_black</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Temps_cream</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c"># The cooling constants of &#39;black&#39; and &#39;cream&#39; coffee.</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">cc</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="c"># Iterate through every sample vector in the dataset.</span>
+        <span class="c"># Calculate delta time. (In case non-uniform)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">times</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c"># Calculate thermal constants at each moment, for both cases.</span>
+        <span class="n">cb</span> <span class="o">-=</span> <span class="p">(</span><span class="n">Temps_black</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Temps_black</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">((</span><span class="n">Temps_black</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">cc</span> <span class="o">-=</span> <span class="p">(</span><span class="n">Temps_cream</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Temps_cream</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">((</span><span class="n">Temps_cream</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="p">)</span>
+
+    <span class="c"># Average the cooling constants.</span>
+    <span class="n">cb</span> <span class="o">/=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="k">print</span> <span class="s">&quot;Black Coffee (c):</span><span class="se">\t</span><span class="s">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+    <span class="n">cc</span> <span class="o">/=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="k">print</span> <span class="s">&quot;Cream Coffee (c):</span><span class="se">\t</span><span class="s">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">times</span><span class="p">,</span> <span class="p">(</span><span class="n">Temps_black</span><span class="p">,</span> <span class="n">Temps_cream</span><span class="p">),</span> <span class="p">{</span><span class="s">&#39;black&#39;</span><span class="p">:</span> <span class="n">cb</span><span class="p">,</span> <span class="s">&#39;cream&#39;</span><span class="p">:</span> <span class="n">cc</span><span class="p">}</span>
+
+<span class="c">#~ Entry point of the script.</span></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tf</span> <span class="o">=</span> <span class="mi">40</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.0001</span>
+    <span class="n">T0</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="n">Tf</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">Tp</span> <span class="o">=</span> <span class="mi">75</span>
+
+    <span class="n">times</span><span class="p">,</span> <span class="n">Temps</span><span class="p">,</span> <span class="n">constants</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">tf</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">T0</span><span class="p">,</span> <span class="n">Tf</span><span class="p">,</span> <span class="n">Tp</span><span class="p">)</span>
+    
+    <span class="n">dec</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mf">10.</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">t_max</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">dec</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">T_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">Temps</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">T_min</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">T_min</span><span class="p">,</span> <span class="o">-</span><span class="n">dec</span><span class="p">(</span><span class="n">T_min</span><span class="p">))</span> <span class="o">-</span> <span class="mf">10.</span><span class="o">*</span><span class="n">dec</span><span class="p">(</span><span class="n">T_min</span><span class="p">)</span>
+    <span class="n">T_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Temps</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">T_max</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">T_max</span><span class="p">,</span> <span class="o">-</span><span class="n">dec</span><span class="p">(</span><span class="n">T_max</span><span class="p">))</span> <span class="o">+</span> <span class="mf">10.</span><span class="o">*</span><span class="n">dec</span><span class="p">(</span><span class="n">T_max</span><span class="p">)</span>
+
+    <span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Discrete Time Model: $</span><span class="se">\\</span><span class="s">Delta t=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;$ minutes; $</span><span class="se">\\</span><span class="s">epsilon</span><span class="se">\\</span><span class="s">propto</span><span class="se">\\</span><span class="s">Delta t$&quot;</span><span class="p">,</span>
+              <span class="s">&quot;Sample Data: $</span><span class="se">\\</span><span class="s">Delta t=2$ minutes; $</span><span class="se">\\</span><span class="s">epsilon</span><span class="se">\\</span><span class="s">propto</span><span class="se">\\</span><span class="s">Delta t$&quot;</span><span class="p">]</span>
+
+    <span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">Temps</span><span class="p">,</span>
+        <span class="n">suptitle</span><span class="o">=</span><span class="s">&quot;Coffee Cooling&quot;</span><span class="p">,</span>
+        <span class="n">titles</span><span class="o">=</span><span class="n">titles</span><span class="p">,</span>
+        <span class="n">xlabels</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Time (minutes)&quot;</span><span class="p">],</span>
+        <span class="n">ylabels</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Temperature (&quot;</span><span class="o">+</span><span class="s">u&#39;</span><span class="se">\N{DEGREE SIGN}</span><span class="s">&#39;</span><span class="o">+</span><span class="s">&quot;C)&quot;</span><span class="p">],</span>
+        <span class="n">xbounds</span><span class="o">=</span><span class="p">[(</span><span class="n">t0</span><span class="p">,</span><span class="n">tf</span><span class="p">),</span> <span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">t_max</span><span class="p">)],</span>
+        <span class="n">ybounds</span><span class="o">=</span><span class="p">[(</span><span class="n">Tf</span><span class="p">,</span><span class="n">T0</span><span class="p">),</span> <span class="p">(</span><span class="n">T_min</span><span class="p">,</span><span class="n">T_max</span><span class="p">)],</span>
+        <span class="n">legends</span><span class="o">=</span><span class="p">[{</span>
+            <span class="s">&quot;Black Coffee&quot;</span><span class="p">:</span><span class="bp">None</span><span class="p">,</span>
+            <span class="s">&quot;Cream Coffee&quot;</span><span class="p">:</span><span class="bp">None</span><span class="p">,</span>
+            <span class="s">&quot;Cream Added&quot;</span><span class="p">:</span><span class="bp">None</span><span class="p">,</span>
+            <span class="s">&quot;$t^*=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s">&quot;$ minutes&quot;</span><span class="p">:</span><span class="bp">None</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s">&quot;Black Coffee: $</span><span class="se">\\</span><span class="s">bar{c_{</span><span class="se">\\</span><span class="s">mathbb{B}}}=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">constants</span><span class="p">[</span><span class="s">&#39;black&#39;</span><span class="p">])</span><span class="o">+</span><span class="s">&quot;$&quot;</span><span class="p">:</span><span class="bp">None</span><span class="p">,</span> <span class="c"># What are the units of &#39;c_B&#39;?</span>
+            <span class="s">&quot;Cream Coffee: $</span><span class="se">\\</span><span class="s">bar{c_{</span><span class="se">\\</span><span class="s">mathbb{C}}}=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">constants</span><span class="p">[</span><span class="s">&#39;cream&#39;</span><span class="p">])</span><span class="o">+</span><span class="s">&quot;$&quot;</span><span class="p">:</span><span class="bp">None</span>
+        <span class="p">}])</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Hugenn - Coffee Cooling .0a documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Evin Özer &amp; Cody Bomberger.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

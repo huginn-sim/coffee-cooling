@@ -1,0 +1,26 @@
+# Model
+    - Add cream at (five) different intervals.
+        - This drops the coffee's temperature by 5°C.
+        - This changes 'c' to 'c["cream"]'.
+        - Must calculate every point from (tc,Tc) to (ti,Tf).
+        - Recursion may work...
+            
+            t = []; T = []
+            cool(args, creamed=False):
+                for time in times['black']:
+                    if not creamed and time in times['cream']:
+                        _t,_T = cool(args, creamed=True)
+                        t.append(_t)
+                        T.append(_T)
+
+                    T_new = blah
+                    _t = []
+                    _T = []
+                    # So many goddamn variables...
+
+                return args
+
+            cargs = cool(args, creamed=False)
+            plot(cargs)
+            configure_plot(cargs)
+            show()
