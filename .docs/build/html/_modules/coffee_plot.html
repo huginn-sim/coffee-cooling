@@ -76,9 +76,10 @@
         <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="c">#/~ Modules</span>
 
+<span class="c">#~ Functions</span>
 <div class="viewcode-block" id="coffee_plot"><a class="viewcode-back" href="../code.html#coffee_plot.coffee_plot">[docs]</a><span class="k">def</span> <span class="nf">coffee_plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">Temps</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">],</span> <span class="n">split</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Segments and visualizes the model output based on the value of &#39;split&#39;.</span>
-<span class="sd">    </span>
+
 <span class="sd">        :param times: A list containing two lists, representing time sampled over some interval.</span>
 <span class="sd">        :param Temps: A list containing two lists, representing temperature sampled over some interval.</span>
 <span class="sd">        :param ax: The &#39;axis&#39; used to plot the samples.</span>
@@ -168,7 +169,9 @@
     <span class="k">if</span> <span class="n">legendary</span><span class="p">:</span>   <span class="c"># Create a legend with the symbols and labels.</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([(</span><span class="n">black_mark0</span><span class="p">,</span> <span class="n">black_mark1</span><span class="p">),</span> <span class="p">(</span><span class="n">cream_mark0</span><span class="p">,</span> <span class="n">cream_mark1</span><span class="p">)],</span>
                          <span class="nb">sorted</span><span class="p">(</span><span class="n">_legend</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
-                         <span class="n">numpoints</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+                         <span class="n">numpoints</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c">#/~ Functions</span></div>
 </pre></div>
 
           </div>
