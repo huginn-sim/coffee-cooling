@@ -2,7 +2,7 @@
 """
 .. module:: plot
    :synopsis: Provides a general interface for formatting plots of a multiple X,Y values.
-   
+
 .. moduleauthor:: Huginn
 """
 
@@ -69,7 +69,7 @@ def configure(ax, title, xlabel, ylabel, xbounds, ybounds):
     ax.axhline(ybounds[0] - y_offset, 1-x_edge, x_edge, lw=5, color="k", alpha=1.)
     ax.axvline(xbounds[0] - x_offset, 1-y_edge, y_edge, lw=4, color="k", alpha=1.)
 
-def plot(X, Y, suptitle=None, titles=None, xlabels=None, ylabels=None, xbounds=None, ybounds=None, layout='tight', legends=None, custom=None):
+def plot(X, Y, suptitle="", titles="", xlabels="", ylabels="", xbounds=None, ybounds=None, layout='tight', legends=None, custom=None):
     """ Plots the specified X,Y data and applies settings.
         If no 'custom' plotting function is defined, all (x,y) in zip(X,Y) are plotted on seperate subplots.
 
@@ -147,3 +147,5 @@ if __name__ == "__main__":
     plot(X=x, Y=y,
          suptitle="Trig Plot", titles=r"$f\left( x\right)=cos\left( x\right)$",
          xlabels="x", ylabels=r"$f\left( x\right)$", layout=None)
+
+    plot(x, y, layout=None)
