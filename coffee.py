@@ -164,12 +164,12 @@ def sample_data(data=None):
 
 #~ Entry point of the script.
 if __name__ == "__main__":
-    t0 = 0
-    tf = 40
-    dt = .001
-    T0 = 90
-    Tf = 20
-    Tp = 75
+    t0 = 0          # Begin modeling the Temperature at t=0 minutes.
+    tf = 40         # Stop modeling the Temperature at tf=40 minutes.
+    dt = .001       # Between t0 and tf, conduct a calculation for every dt.
+    T0 = 90         # Assume the coffee is initially 90 °C.
+    Tf = 20         # Assume the coffee's final temperature will be room temperature (20 °C).
+    Tp = 75         # We want to drink the coffee when it is 75 °C.
 
     times, Temps, constants = model(t0, tf, dt, T0, Tf, Tp)
     
@@ -182,8 +182,13 @@ if __name__ == "__main__":
     T_max = max(Temps[0][0], Temps[1][0])
     T_max = round(T_max, -dec(T_max)) + 10.*dec(T_max)
 
-    titles = ["Discrete Time Model: $\\Delta t="+str(dt)+"$ minutes; $\\epsilon\\propto\\Delta t$",
-              "Sample Data: $\\Delta t=2$ minutes; $\\epsilon\\propto\\Delta t$"]
+    # Calculate the number of seconds from the decimal minutes.
+    best_time = times[3][0]
+    best_seconds = (best_time - float(str(best_time).split('.')[0]))*60.
+    best_seconds = str(int(best_seconds))
+
+    titles = [r"Discrete Time Model: $\Delta t="+str(dt)+"$ minutes; $\epsilon\propto\Delta t$",
+              r"Sample Data: $\Delta t=2$ minutes; $\epsilon\propto\Delta t$"]
 
     plot(times, Temps,
         suptitle="Coffee Cooling",
@@ -193,9 +198,9 @@ if __name__ == "__main__":
         xbounds=[(t0,20), (t_min,t_max)],
         ybounds=[(70,T0), (T_min,T_max)],
         legends=[["Black Coffee", "Cream Coffee", "Cream Added",
-                  "$t^*\\approx "+str(float(times[3][0]))[:4]+"$ minutes"
+                  r"$t^*\approx "+str(best_time)[:dec(best_time)]+"$ minutes and $"+best_seconds+"$ seconds"
                  ],
-                 ["Black Coffee: $\\bar{c_{\\mathbb{B}}}="+str(constants['black'])[:6]+"$", # What are the units of 'c_B'?
-                  "Cream Coffee: $\\bar{c_{\\mathbb{C}}}="+str(constants['cream'])[:6]+"$"
+                 [r"Black Coffee: $\bar{c_{\mathbb{B}}}\approx"+str(constants['black'])[:6]+"$", # What are the units of 'c_B'?
+                  r"Cream Coffee: $\bar{c_{\mathbb{C}}}\approx"+str(constants['cream'])[:6]+"$"
                  ]],
         custom=cplot)

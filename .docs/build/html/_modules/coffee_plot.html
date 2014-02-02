@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>coffee_plot &mdash; Huginn - Coffee Cooling .0a documentation</title>
+    
+    <link rel="stylesheet" href="../_static/f6.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '.0a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Huginn - Coffee Cooling .0a documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Huginn - Coffee Cooling .0a documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for coffee_plot</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module:: coffee_plot</span>
+<span class="sd">   :synopsis: TODO.</span>
+
+<span class="sd">.. moduleauthor:: Huginn</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c">#~ Modules</span>
+<span class="kn">import</span>  <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span><span class="o">,</span> \
+        <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="c">#/~ Modules</span>
+
+<div class="viewcode-block" id="coffee_plot"><a class="viewcode-back" href="../code.html#coffee_plot.coffee_plot">[docs]</a><span class="k">def</span> <span class="nf">coffee_plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">Temps</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">],</span> <span class="n">split</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Segments and visualizes the model output based on the value of &#39;split&#39;.</span>
+<span class="sd">    </span>
+<span class="sd">        :param times: A list containing two lists, representing time sampled over some interval.</span>
+<span class="sd">        :param Temps: A list containing two lists, representing temperature sampled over some interval.</span>
+<span class="sd">        :param ax: The &#39;axis&#39; used to plot the samples.</span>
+<span class="sd">        :legend: An optional list of labels for a legend.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plot_model</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="n">split</span><span class="p">:],</span> <span class="n">Temps</span><span class="p">[</span><span class="n">split</span><span class="p">:],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">legends</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">plot_samples</span><span class="p">(</span><span class="n">times</span><span class="p">[:</span><span class="n">split</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[:</span><span class="n">split</span><span class="p">],</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">legends</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="plot_model"><a class="viewcode-back" href="../code.html#coffee_plot.plot_model">[docs]</a><span class="k">def</span> <span class="nf">plot_model</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">Temps</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Plots temperature as a function of time; using output from an internal model.</span>
+
+<span class="sd">        :param times: A list containing many lists, representing time sampled over some interval.</span>
+<span class="sd">        :param Temps: A list containing many lists, representing temperature sampled over some interval.</span>
+<span class="sd">        :param ax: The &#39;axis&#39; used to plot the samples.</span>
+<span class="sd">        :legend: An optional list of labels for a legend.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="c"># Initially, assume there is no legend.</span>
+    <span class="n">legendary</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="n">legend</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">_legend</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+        <span class="n">black</span><span class="p">,</span> <span class="n">cream</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">best</span> <span class="o">=</span> <span class="n">legend</span>
+        <span class="n">legendary</span> <span class="o">=</span> <span class="bp">True</span>
+        
+    <span class="c">#~ Cream Coffee (at various times)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">time</span><span class="p">,</span><span class="n">Temp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="n">Temps</span><span class="p">)[</span><span class="mi">3</span><span class="p">:]):</span>
+        <span class="n">cream_mark0</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">Temp</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+        <span class="n">cream_mark1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">Temp</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;#C48B52&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">legendary</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>   <span class="c"># Create a legend symbol for this line. </span>
+            <span class="n">_legend</span><span class="p">[</span><span class="n">cream</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cream_mark0</span><span class="p">,</span><span class="n">cream_mark1</span><span class="p">)</span>
+
+    <span class="c">#~ Best Time to Add Cream</span>
+    <span class="n">best_mark0</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">&#39;w-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">best_mark1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;#C48B52&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c">#~ Black Coffee (no cream)</span>
+    <span class="n">black_mark0</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;k-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">black_mark1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;#5A352D&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">legendary</span><span class="p">:</span>   <span class="c"># Create a legend symbol for this line. </span>
+        <span class="n">_legend</span><span class="p">[</span><span class="n">black</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">black_mark0</span><span class="p">,</span><span class="n">black_mark1</span><span class="p">)</span>
+
+    <span class="c">#~ Cream Coffee (points of cream addition)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,(</span><span class="n">time</span><span class="p">,</span><span class="n">Temp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="n">Temps</span><span class="p">)[</span><span class="mi">3</span><span class="p">:]):</span>
+        <span class="n">cream_point_mark0</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;ko&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">cream_point_mark1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;#C48B52&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">legendary</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>    <span class="c"># Create a legend symbol for this line.</span>
+            <span class="n">_legend</span><span class="p">[</span><span class="n">added</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cream_point_mark0</span><span class="p">,</span><span class="n">cream_point_mark1</span><span class="p">)</span>
+
+    <span class="c">#~ Best Time (Contd.)</span>
+    <span class="n">best_mark2</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;w*&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">best_mark3</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;#C48B52&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">legendary</span><span class="p">:</span>   <span class="c"># Create a legend symbol for the * symbol. </span>
+        <span class="n">_legend</span><span class="p">[</span><span class="n">best</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">best_mark0</span><span class="p">,</span><span class="n">best_mark1</span><span class="p">,</span><span class="n">best_mark2</span><span class="p">,</span><span class="n">best_mark3</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">legendary</span><span class="p">:</span>   <span class="c"># Add the legends and labels to the plot.</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">_legend</span><span class="p">[</span><span class="n">black</span><span class="p">],</span> <span class="n">_legend</span><span class="p">[</span><span class="n">cream</span><span class="p">],</span> <span class="n">_legend</span><span class="p">[</span><span class="n">added</span><span class="p">],</span> <span class="n">_legend</span><span class="p">[</span><span class="n">best</span><span class="p">]],</span>
+                  <span class="p">[</span><span class="n">black</span><span class="p">,</span> <span class="n">cream</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">best</span><span class="p">],</span> <span class="n">numpoints</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="plot_samples"><a class="viewcode-back" href="../code.html#coffee_plot.plot_samples">[docs]</a><span class="k">def</span> <span class="nf">plot_samples</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">Temps</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Plots temperature as a function of time; using output from an external source.</span>
+
+<span class="sd">        :param times: A list containing two lists, representing time sampled over some interval.</span>
+<span class="sd">        :param Temps: A list containing two lists, representing temperature sampled over some interval.</span>
+<span class="sd">        :param ax: The &#39;axis&#39; used to plot the samples.</span>
+<span class="sd">        :legend: An optional list of labels for a legend.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="n">legendary</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">if</span> <span class="n">legend</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">_legend</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+        <span class="n">legendary</span> <span class="o">=</span> <span class="bp">True</span>
+    
+    <span class="c">#~ Black Coffee (no cream)</span>
+    <span class="n">black_mark0</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">black_mark1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;#5A352D&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">cream_mark0</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">cream_mark1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Temps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s">&#39;#C48B52&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">legendary</span><span class="p">:</span>   <span class="c"># Create a legend with the symbols and labels.</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([(</span><span class="n">black_mark0</span><span class="p">,</span> <span class="n">black_mark1</span><span class="p">),</span> <span class="p">(</span><span class="n">cream_mark0</span><span class="p">,</span> <span class="n">cream_mark1</span><span class="p">)],</span>
+                         <span class="nb">sorted</span><span class="p">(</span><span class="n">_legend</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+                         <span class="n">numpoints</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Huginn - Coffee Cooling .0a documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Evin Özer &amp; Cody Bomberger.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.1.Theme by <a href="http://github.com/vkvn">vkvn</a>
+    </div>
+  </body>
+</html>

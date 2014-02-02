@@ -11,11 +11,26 @@ import  matplotlib.pyplot as plt, \
         numpy as np
 #/~ Modules
 
+#~ Functions
 def coffee_plot(times, Temps, axes, legends=[None, None], split=2):
+    """ Segments and visualizes the model output based on the value of 'split'.
+
+        :param times: A list containing two lists, representing time sampled over some interval.
+        :param Temps: A list containing two lists, representing temperature sampled over some interval.
+        :param ax: The 'axis' used to plot the samples.
+        :legend: An optional list of labels for a legend.
+    """
     plot_model(times[split:], Temps[split:], axes[0], legends[0])
     plot_samples(times[:split], Temps[:split], axes[1], legends[1])
 
 def plot_model(times, Temps, ax=None, legend=None):
+    """ Plots temperature as a function of time; using output from an internal model.
+
+        :param times: A list containing many lists, representing time sampled over some interval.
+        :param Temps: A list containing many lists, representing temperature sampled over some interval.
+        :param ax: The 'axis' used to plot the samples.
+        :legend: An optional list of labels for a legend.
+    """
     if ax != None: plt.sca(ax)
     else: ax = plt.gca()
 
@@ -65,6 +80,13 @@ def plot_model(times, Temps, ax=None, legend=None):
                   [black, cream, added, best], numpoints=1)
 
 def plot_samples(times, Temps, ax, legend=None):
+    """ Plots temperature as a function of time; using output from an external source.
+
+        :param times: A list containing two lists, representing time sampled over some interval.
+        :param Temps: A list containing two lists, representing temperature sampled over some interval.
+        :param ax: The 'axis' used to plot the samples.
+        :legend: An optional list of labels for a legend.
+    """
     if ax != None: plt.sca(ax)
     else: ax = plt.gca()
 
@@ -83,3 +105,5 @@ def plot_samples(times, Temps, ax, legend=None):
         ax.legend([(black_mark0, black_mark1), (cream_mark0, cream_mark1)],
                          sorted(_legend.keys()),
                          numpoints=1)
+
+#/~ Functions

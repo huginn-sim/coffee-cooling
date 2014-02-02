@@ -147,7 +147,73 @@
 <div class="section" id="the-coffee-plot-module">
 <h1>The <tt class="docutils literal"><span class="pre">coffee_plot</span></tt> module<a class="headerlink" href="#the-coffee-plot-module" title="Permalink to this headline">¶</a></h1>
 <p>TODO</p>
-<span class="target" id="module-coffee_plot"></span><span class="target" id="module-coffee_plot"></span></div>
+<span class="target" id="module-coffee_plot"></span><span class="target" id="module-coffee_plot"></span><dl class="function">
+<dt id="coffee_plot.coffee_plot">
+<tt class="descclassname">coffee_plot.</tt><tt class="descname">coffee_plot</tt><big>(</big><em>times, Temps, axes, legends=[None, None], split=2</em><big>)</big><a class="reference internal" href="_modules/coffee_plot.html#coffee_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee_plot.coffee_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Segments and visualizes the model output based on the value of &#8216;split&#8217;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>times</strong> &#8211; A list containing two lists, representing time sampled over some interval.</li>
+<li><strong>Temps</strong> &#8211; A list containing two lists, representing temperature sampled over some interval.</li>
+<li><strong>ax</strong> &#8211; The &#8216;axis&#8217; used to plot the samples.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Legend:</th><td class="field-body"><p class="first last">An optional list of labels for a legend.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="coffee_plot.plot_model">
+<tt class="descclassname">coffee_plot.</tt><tt class="descname">plot_model</tt><big>(</big><em>times</em>, <em>Temps</em>, <em>ax=None</em>, <em>legend=None</em><big>)</big><a class="reference internal" href="_modules/coffee_plot.html#plot_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee_plot.plot_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots temperature as a function of time; using output from an internal model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>times</strong> &#8211; A list containing many lists, representing time sampled over some interval.</li>
+<li><strong>Temps</strong> &#8211; A list containing many lists, representing temperature sampled over some interval.</li>
+<li><strong>ax</strong> &#8211; The &#8216;axis&#8217; used to plot the samples.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Legend:</th><td class="field-body"><p class="first last">An optional list of labels for a legend.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="coffee_plot.plot_samples">
+<tt class="descclassname">coffee_plot.</tt><tt class="descname">plot_samples</tt><big>(</big><em>times</em>, <em>Temps</em>, <em>ax</em>, <em>legend=None</em><big>)</big><a class="reference internal" href="_modules/coffee_plot.html#plot_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#coffee_plot.plot_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots temperature as a function of time; using output from an external source.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>times</strong> &#8211; A list containing two lists, representing time sampled over some interval.</li>
+<li><strong>Temps</strong> &#8211; A list containing two lists, representing temperature sampled over some interval.</li>
+<li><strong>ax</strong> &#8211; The &#8216;axis&#8217; used to plot the samples.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Legend:</th><td class="field-body"><p class="first last">An optional list of labels for a legend.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="the-plot-module">
 <h1>The <tt class="docutils literal"><span class="pre">plot</span></tt> module<a class="headerlink" href="#the-plot-module" title="Permalink to this headline">¶</a></h1>
 <p>TODO</p>
