@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 .. module:: plot
-   :synopsis: TODO.
-
+   :synopsis: Provides a general interface for formatting plots of a multiple X,Y values.
+   
 .. moduleauthor:: Huginn
 """
 

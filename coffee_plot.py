@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 .. module:: coffee_plot
-   :synopsis: TODO.
+   :synopsis: Visualizes the output of the coffee module.
 
 .. moduleauthor:: Huginn
 """

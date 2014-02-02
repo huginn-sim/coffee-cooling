@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 .. module:: coffee
-   :synopsis: TODO.
+   :synopsis: Describes a model that approximates a cup of coffee's rate of cooling as a function of time.
 
 .. moduleauthor:: Huginn
 """
